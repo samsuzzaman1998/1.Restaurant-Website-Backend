@@ -26,7 +26,8 @@ const UserSchema = mongoose.Schema(
         },
         avatar: {
             type: String,
-            default: "",
+            default:
+                "https://res.cloudinary.com/ddaum19rz/image/upload/v1676975473/FoodFun/avatar_yj7ndh.png",
             trim: true,
         },
         contact: {

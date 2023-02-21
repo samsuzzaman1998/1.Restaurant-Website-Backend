@@ -3,8 +3,21 @@ const createError = require("http-errors");
 const JWTGenerator = require("../utils/JWTGenerator");
 
 // Get Controllers ====================================
-exports.getUser = async (req, res) => {
-    res.send("done");
+exports.userGettingHandler = async (req, res) => {
+    try {
+        const result = req.user;
+        if (!result) {
+            res.status(500).json({ status: false, message: "User not found" });
+        } else {
+            res.status(200).json({
+                status: true,
+                message: "Data get Successfully",
+                result,
+            });
+        }
+    } catch (error) {
+        next(createError(500, error.message));
+    }
 };
 //  POST Controllers ==================================
 exports.userCreatingHandler = async (req, res, next) => {
