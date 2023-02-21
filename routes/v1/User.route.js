@@ -8,12 +8,14 @@ const UserController = require("../../controller/UserController");
 const userAuthenticationMiddleware = require("../../middlewares/userAuthenticationMiddleware");
 
 // Private Routes
-// Public Routes
-userRouter.post("/create-user", UserController.userCreatingHandler);
 userRouter.get(
     "/get-user",
     userAuthenticationMiddleware,
     UserController.userGettingHandler
 );
+
+// Public Routes
+userRouter.post("/create-user", UserController.userCreatingHandler);
+userRouter.post("/login-user", UserController.userLoginHandler);
 
 module.exports = userRouter; // exporting that router
