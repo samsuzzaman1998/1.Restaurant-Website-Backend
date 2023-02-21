@@ -2,14 +2,21 @@ const UserModel = require("../model/UserModel");
 const createError = require("http-errors");
 const JWTGenerator = require("../utils/JWTGenerator");
 
+// Get Controllers ====================================
+exports.getUser = async (req, res) => {
+    res.send("done");
+};
 //  POST Controllers ==================================
-exports.userCreatingHandlerr = async (req, res, next) => {
+exports.userCreatingHandler = async (req, res, next) => {
     try {
         const { name, email, password, terms } = req.body;
         const isPeopleExist = await UserModel.findOne({ email });
 
         if (isPeopleExist) {
-            next(createError(500, "Email Already exists"));
+            res.status(500).json({
+                status: false,
+                message: "Email already exists",
+            });
         } else {
             if (name && email && password && terms) {
                 const newUser = new UserModel(req.body);
@@ -22,10 +29,16 @@ exports.userCreatingHandlerr = async (req, res, next) => {
                     TOKEN,
                 });
             } else {
-                next(createError(500, "Enter valid information"));
+                res.status(500).json({
+                    status: false,
+                    message: "Enter valid information",
+                });
             }
         }
     } catch (error) {
-        next(createError(500, error.message));
+        res.status(500).json({
+            status: false,
+            message: error.message,
+        });
     }
 };

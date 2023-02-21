@@ -6,6 +6,7 @@ const UserController = require("../../controller/UserController");
 
 // Private Routes
 // Public Routes
-userRouter.post("/create-user", UserController.userCreatingHandlerr);
+userRouter.post("/create-user", UserController.userCreatingHandler);
+userRouter.get("/get-user", UserController.getUser);
 
 module.exports = userRouter; // exporting that router

@@ -24,8 +24,24 @@ const UserSchema = mongoose.Schema(
             type: Boolean,
             required: [true, "Accepet all the terms and conditions"],
         },
-        profilePhoto: {
+        avatar: {
             type: String,
+            default: "",
+            trim: true,
+        },
+        contact: {
+            type: String,
+            default: "",
+            trim: true,
+        },
+        location: {
+            type: String,
+            default: "",
+            trim: true,
+        },
+        role: {
+            type: String,
+            default: "user",
             trim: true,
         },
     },
