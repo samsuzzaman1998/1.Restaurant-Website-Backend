@@ -13,6 +13,11 @@ userRouter.get(
     userAuthenticationMiddleware,
     UserController.userGettingHandler
 );
+userRouter.put(
+    "/update-user",
+    userAuthenticationMiddleware,
+    UserController.userUpdatingHandler
+);
 
 // Public Routes
 userRouter.post("/create-user", UserController.userCreatingHandler);

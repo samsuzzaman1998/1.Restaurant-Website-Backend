@@ -112,3 +112,24 @@ exports.userLoginHandler = async (req, res, next) => {
         });
     }
 };
+
+// ======================== PUT Controller ===============================
+exports.userUpdatingHandler = async (req, res, next) => {
+    try {
+        let result = await UserModel.updateOne(
+            // { email: req.body.email },
+            req.user,
+            { $set: req.body },
+            { runValidators: true }
+        );
+        res.status(200).json({
+            status: true,
+            message: "User Updated Successfully",
+        });
+    } catch (error) {
+        res.status(500).json({
+            status: false,
+            message: error.message,
+        });
+    }
+};
