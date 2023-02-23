@@ -23,6 +23,12 @@ userRouter.put(
     userAuthenticationMiddleware,
     UserController.changePasswordHandler
 );
+// to get all user list
+userRouter.get(
+    "/get-all-user",
+    userAuthenticationMiddleware,
+    UserController.getAllUserHandler
+);
 
 // Public Routes
 userRouter.post("/create-user", UserController.userCreatingHandler);

@@ -23,6 +23,25 @@ exports.userGettingHandler = async (req, res) => {
     }
 };
 
+// to get all user list
+exports.getAllUserHandler = async (req, res, next) => {
+    try {
+        const result = await UserModel.find({}).select(
+            "name email role avatar -_id"
+        );
+        res.status(200).json({
+            status: true,
+            message: "User get Successfully",
+            result,
+        });
+    } catch (error) {
+        res.status(500).send({
+            status: false,
+            message: error.message,
+        });
+    }
+};
+
 // ========================== POST Controllers ==================================
 // sign up user handler
 exports.userCreatingHandler = async (req, res, next) => {
@@ -152,9 +171,15 @@ exports.changePasswordHandler = async (req, res, next) => {
                 message: "Password Changed Successfully",
             });
         } catch (error) {
-            next(createError(500, error.message));
+            res.status(500).json({
+                status: false,
+                message: error.message,
+            });
         }
     } else {
-        next(createError(500, "Password was not found!!!"));
+        res.status(500).json({
+            status: false,
+            message: "Old password is not correct",
+        });
     }
 };
