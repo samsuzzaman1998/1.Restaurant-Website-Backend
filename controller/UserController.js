@@ -133,3 +133,28 @@ exports.userUpdatingHandler = async (req, res, next) => {
         });
     }
 };
+
+// Change user password
+exports.changePasswordHandler = async (req, res, next) => {
+    const { newPassword } = req.body;
+    if (newPassword) {
+        try {
+            const salt = await bcrypt.genSalt(10);
+            const newHashedPassword = await bcrypt.hash(newPassword, salt);
+            const { _id, email } = req.user;
+            const result = await UserModel.findOneAndUpdate(
+                { _id, email },
+                { password: newHashedPassword },
+                { new: true }
+            );
+            res.status(200).send({
+                status: true,
+                message: "Password Changed Successfully",
+            });
+        } catch (error) {
+            next(createError(500, error.message));
+        }
+    } else {
+        next(createError(500, "Password was not found!!!"));
+    }
+};

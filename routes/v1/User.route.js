@@ -18,6 +18,11 @@ userRouter.put(
     userAuthenticationMiddleware,
     UserController.userUpdatingHandler
 );
+userRouter.put(
+    "/change-password",
+    userAuthenticationMiddleware,
+    UserController.changePasswordHandler
+);
 
 // Public Routes
 userRouter.post("/create-user", UserController.userCreatingHandler);
