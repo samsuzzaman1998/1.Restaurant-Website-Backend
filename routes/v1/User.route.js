@@ -30,6 +30,13 @@ userRouter.get(
     UserController.getAllUserHandler
 );
 
+// Put route
+userRouter.put(
+    "/make-admin/:email",
+    userAuthenticationMiddleware,
+    UserController.makeUserAdminHandler
+);
+
 // Public Routes
 userRouter.post("/create-user", UserController.userCreatingHandler);
 userRouter.post("/login-user", UserController.userLoginHandler);

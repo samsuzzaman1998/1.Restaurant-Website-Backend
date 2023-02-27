@@ -5,6 +5,19 @@ exports.demoHandler = async (req, res, next) => {
     res.status(200).json({ status: true, message: "successfull" });
 };
 
+// GET Handlers ==================================
+exports.getFoodsHandler = async (req, res, next) => {
+    try {
+        const result = await FoodModel.find({});
+        res.status(200).json({
+            status: true,
+            result,
+        });
+    } catch (error) {
+        res.status(500).json({ status: false, message: error.message });
+    }
+};
+
 // POST Handlers =================================
 exports.addFoodHandler = async (req, res, next) => {
     try {

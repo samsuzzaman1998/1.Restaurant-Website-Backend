@@ -153,6 +153,37 @@ exports.userUpdatingHandler = async (req, res, next) => {
     }
 };
 
+// handler to create user as admin
+exports.makeUserAdminHandler = async (req, res, next) => {
+    console.log("hitted");
+    try {
+        const email = req.params.email;
+        console.log(email);
+        if (email) {
+            const filter = { email };
+            const updateDoc = {
+                role: "ADMIN",
+            };
+            // updating
+            let updatedUser = await UserModel.findOneAndUpdate(
+                filter,
+                updateDoc
+            );
+            res.status(200).json({
+                status: true,
+                message: "Admin added",
+                updatedUser,
+            });
+        } else {
+            res.status(500).json({
+                status: false,
+                message: "User email required",
+            });
+        }
+    } catch (error) {
+        res.status(500).json({ status: false, message: error.message });
+    }
+};
 // Change user password
 exports.changePasswordHandler = async (req, res, next) => {
     const { newPassword } = req.body;

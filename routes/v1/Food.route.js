@@ -5,5 +5,6 @@ const foodRouter = express.Router(); // create a router
 const FoodController = require("../../controller/FoodController");
 
 foodRouter.post("/add-food", FoodController.addFoodHandler);
+foodRouter.get("/get-foods", FoodController.getFoodsHandler);
 
 module.exports = foodRouter;
