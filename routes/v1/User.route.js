@@ -6,6 +6,7 @@ const UserController = require("../../controller/UserController");
 
 // Middlewares
 const userAuthenticationMiddleware = require("../../middlewares/userAuthenticationMiddleware");
+const userAuthorizationMiddleware = require("../../middlewares/userAuthorizationMiddleware");
 
 // Private Routes
 userRouter.get(
@@ -34,6 +35,7 @@ userRouter.get(
 userRouter.put(
     "/make-admin/:email",
     userAuthenticationMiddleware,
+    userAuthorizationMiddleware("ADMIN"),
     UserController.makeUserAdminHandler
 );
 
