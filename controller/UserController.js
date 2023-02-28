@@ -42,6 +42,22 @@ exports.getAllUserHandler = async (req, res, next) => {
     }
 };
 
+// to check user admin or not
+exports.checkAdminHandler = async (req, res, next) => {
+    const email = req.params.email;
+    try {
+        const user = await UserModel.findOne({ email: email });
+        if (user) {
+            const isAdmin = user.role === "ADMIN";
+            res.json({ status: isAdmin });
+        } else {
+            res.json({ status: false });
+        }
+    } catch (error) {
+        res.status(500).json({ status: false, message: error.message });
+    }
+};
+
 // ========================== POST Controllers ==================================
 // sign up user handler
 exports.userCreatingHandler = async (req, res, next) => {

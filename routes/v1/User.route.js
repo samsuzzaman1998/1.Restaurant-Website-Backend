@@ -38,6 +38,12 @@ userRouter.put(
     userAuthorizationMiddleware("ADMIN"),
     UserController.makeUserAdminHandler
 );
+// to check user admin or not
+userRouter.get(
+    "/check-admin/:email",
+    userAuthenticationMiddleware,
+    UserController.checkAdminHandler
+);
 
 // Public Routes
 userRouter.post("/create-user", UserController.userCreatingHandler);
