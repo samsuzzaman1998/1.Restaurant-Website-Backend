@@ -38,6 +38,13 @@ userRouter.put(
     userAuthorizationMiddleware("ADMIN"),
     UserController.makeUserAdminHandler
 );
+// To Remove from admin role
+userRouter.put(
+    "/remove-admin/:email",
+    userAuthenticationMiddleware,
+    userAuthorizationMiddleware("ADMIN"),
+    UserController.removeUserAdminHandler
+);
 // to check user admin or not
 userRouter.get(
     "/check-admin/:email",

@@ -171,10 +171,8 @@ exports.userUpdatingHandler = async (req, res, next) => {
 
 // handler to create user as admin
 exports.makeUserAdminHandler = async (req, res, next) => {
-    console.log("hitted");
     try {
         const email = req.params.email;
-        console.log(email);
         if (email) {
             const filter = { email };
             const updateDoc = {
@@ -194,6 +192,36 @@ exports.makeUserAdminHandler = async (req, res, next) => {
             res.status(500).json({
                 status: false,
                 message: "User email required",
+            });
+        }
+    } catch (error) {
+        res.status(500).json({ status: false, message: error.message });
+    }
+};
+
+// handler to remove user from admin
+exports.removeUserAdminHandler = async (req, res, next) => {
+    try {
+        const email = req.params.email;
+        if (email) {
+            const filter = { email };
+            const updateDoc = {
+                role: "user",
+            };
+            // updating
+            let updatedUser = await UserModel.findOneAndUpdate(
+                filter,
+                updateDoc
+            );
+            res.status(200).json({
+                status: true,
+                message: "Removed from Admin",
+                updatedUser,
+            });
+        } else {
+            res.status(500).json({
+                status: false,
+                message: "Provide a valid email",
             });
         }
     } catch (error) {
