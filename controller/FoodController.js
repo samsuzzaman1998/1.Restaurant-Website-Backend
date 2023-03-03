@@ -42,3 +42,18 @@ exports.addFoodHandler = async (req, res, next) => {
         res.status(500).json({ status: false, message: error.message });
     }
 };
+
+// Delete Handlers ===============================
+exports.foodDeleteHandler = async (req, res, next) => {
+    try {
+        const foodID = req.params.ID;
+        if (foodID) {
+            await FoodModel.findByIdAndDelete({ _id: foodID });
+            res.status(200).json({ stauts: true, message: "Food Deleted" });
+        } else {
+            res.status(500).json({ status: false, message: "Food not found" });
+        }
+    } catch (error) {
+        res.status(500).json({ status: false, message: error.message });
+    }
+};
