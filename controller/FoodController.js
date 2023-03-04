@@ -43,6 +43,22 @@ exports.addFoodHandler = async (req, res, next) => {
     }
 };
 
+// PUT Handlers ==================================
+exports.updateFoodsHandler = async (req, res, next) => {
+    try {
+        const ID = req.params.ID;
+        const updateData = req.body;
+        const filter = { _id: ID, name: updateData.name };
+        const doc = await FoodModel.findOneAndUpdate(filter, updateData, {
+            new: true,
+        });
+        res.status(200).json({ status: true, message: "Update successful" });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ status: false, message: error.message });
+    }
+};
+
 // Delete Handlers ===============================
 exports.foodDeleteHandler = async (req, res, next) => {
     try {

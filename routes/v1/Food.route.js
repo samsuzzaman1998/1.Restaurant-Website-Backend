@@ -10,6 +10,12 @@ const FoodController = require("../../controller/FoodController");
 
 foodRouter.post("/add-food", FoodController.addFoodHandler);
 foodRouter.get("/get-foods", FoodController.getFoodsHandler);
+foodRouter.put(
+    "/update-food/:ID",
+    userAuthenticationMiddleware,
+    userAuthorizationMiddleware("ADMIN"),
+    FoodController.updateFoodsHandler
+);
 foodRouter.delete(
     "/delete-food/:ID",
     userAuthenticationMiddleware,
