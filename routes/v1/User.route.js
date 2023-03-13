@@ -24,6 +24,7 @@ userRouter.put(
     userAuthenticationMiddleware,
     UserController.changePasswordHandler
 );
+
 // to get all user list
 userRouter.get(
     "/get-all-user",
@@ -38,6 +39,7 @@ userRouter.put(
     userAuthorizationMiddleware("ADMIN"),
     UserController.makeUserAdminHandler
 );
+
 // To Remove from admin role
 userRouter.put(
     "/remove-admin/:email",
@@ -45,6 +47,7 @@ userRouter.put(
     userAuthorizationMiddleware("ADMIN"),
     UserController.removeUserAdminHandler
 );
+
 // to check user admin or not
 userRouter.get(
     "/check-admin/:email",

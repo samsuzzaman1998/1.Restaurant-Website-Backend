@@ -8,7 +8,12 @@ const userAuthorizationMiddleware = require("../../middlewares/userAuthorization
 // controller
 const FoodController = require("../../controller/FoodController");
 
-foodRouter.post("/add-food", FoodController.addFoodHandler);
+foodRouter.post(
+    "/add-food",
+    userAuthenticationMiddleware,
+    userAuthorizationMiddleware("ADMIN"),
+    FoodController.addFoodHandler
+);
 foodRouter.get("/get-foods", FoodController.getFoodsHandler);
 foodRouter.put(
     "/update-food/:ID",
