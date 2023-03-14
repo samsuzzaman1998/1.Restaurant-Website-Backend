@@ -10,5 +10,6 @@ const cartController = require("../../controller/CartController");
 
 // Routes =======
 cartRouter.post("/add-to-cart", cartController.addToCartHandler);
+cartRouter.get("/get-cart/:email", cartController.getCartHandler);
 
 module.exports = cartRouter;
